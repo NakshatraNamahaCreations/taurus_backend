@@ -274,7 +274,7 @@ exports.createOrder = async (req, res) => {
       discount,
       grandTotal,
       rentalType,
-      status: "confirmed",
+      status: "pending",
       startDate,
       endDate,
     });

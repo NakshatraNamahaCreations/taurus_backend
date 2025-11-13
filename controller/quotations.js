@@ -156,7 +156,9 @@ exports.generateOrder = async (req, res) => {
       discount: quotation.discount,
       grandTotal: quotation.grandTotal,
       rentalType: quotation.rentalType,
-      status: "confirmed",
+      status: "pending",
+      startDate:quotation.startDate,
+      endDate:quotation.endDate,
     });
 
     await order.save();
