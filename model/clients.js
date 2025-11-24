@@ -22,9 +22,9 @@ const ClientSchema = new mongoose.Schema(
     address: {
       type: String,
     },
-    amount:{
-     type:Number
-    },
+    // amount:{
+    //  type:Number
+    // },
     isActive: {
       type: Boolean,
       default: true

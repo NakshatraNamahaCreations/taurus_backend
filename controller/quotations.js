@@ -4,29 +4,6 @@ const Product = require("../model/product");
 const { default: mongoose } = require("mongoose");
 const client = require("../model/clients")
 
-// exports.createQuotation = async (req, res) => {
-//   try {
-//     const { clientId, clientName, products, transportCharges = 0, gst = 0, discount = 0, rentalType, startDate, endDate,grandTotal } = req.body;
-//     const quotation = new Quotation({
-//       clientId,
-//       clientName,
-    
-//       products,
-//       transportCharges,
-//       gst,
-//       discount,
-//       grandTotal,
-//       rentalType,
-//       startDate,
-//       endDate
-//     });
-
-//     await quotation.save();
-//     res.status(201).json(quotation);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error creating quotation", error });
-//   }
-// };
 
 exports.createQuotation = async (req, res) => {
   try {
@@ -43,7 +20,6 @@ exports.createQuotation = async (req, res) => {
       grandTotal 
     } = req.body;
 
-    // 🔸 Validate clientId is a valid ObjectId
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
       return res.status(400).json({ message: "Invalid client ID format" });
     }

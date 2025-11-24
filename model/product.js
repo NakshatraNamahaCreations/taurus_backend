@@ -14,14 +14,14 @@ const ProductSchema = new mongoose.Schema(
       type: String, 
       required: true,
     },
-    price: {
-      type: Number, 
-      required: true,
-    },
-    depositAmount: {
-      type: Number, 
-      default: 0,
-    },
+    // price: {
+    //   type: Number, 
+    //   required: true,
+    // },
+    // depositAmount: {
+    //   type: Number, 
+    //   default: 0,
+    // },
     quantity: {
       type: Number, 
       required: true,

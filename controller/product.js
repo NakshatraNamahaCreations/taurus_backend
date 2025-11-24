@@ -7,8 +7,8 @@ exports.addProduct = async (req, res) => {
       productName,
       productType,
       brandName,
-      price,
-      depositAmount,
+      // price,
+      // depositAmount,
       quantity,
       availableQty,
       systemNumber,
@@ -16,7 +16,7 @@ exports.addProduct = async (req, res) => {
       description,
     } = req.body;
 
-    if (!productName || !productType || !brandName || !price || !quantity) {
+    if (!productName || !productType || !brandName || !quantity) {
       return res.status(400).json({ message: "Please fill all required fields" });
     }
 
@@ -24,8 +24,8 @@ exports.addProduct = async (req, res) => {
       productName,
       productType,
       brandName,
-      price,
-      depositAmount,
+      // price,
+      // depositAmount,
       quantity,
       availableQty,
       systemNumber,
