@@ -1,7 +1,4 @@
-
-
 const mongoose = require("mongoose");
-
 
 const OrderSchema = new mongoose.Schema(
   {
@@ -14,11 +11,11 @@ const OrderSchema = new mongoose.Schema(
     discount: { type: Number, default: 0 },
     grandTotal: { type: Number, required: true },
     rentalType: { type: String, enum: ["daily", "monthly", "yearly"], default: "daily" },
-    status: { type: String, enum: ["pending", "completed", "cancelled","confirmed"], default: "pending" },
-     startDate: { type: Date, },
+    status: { type: String, enum: ["pending", "completed", "cancelled", "confirmed", "returned", 'partial-return'], default: "pending" },
+    startDate: { type: Date, },
     endDate: { type: Date },
-    invoiceNo: { type: String, unique: true }, 
-     deliveryChallanNo: { type: String },
+    invoiceNo: { type: String, },
+    deliveryChallanNo: { type: String },
   },
   { timestamps: true }
 );

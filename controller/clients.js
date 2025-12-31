@@ -2,7 +2,7 @@ const Client = require("../model/clients");
 
 exports.addClient = async (req, res) => {
   try {
-    const { clientName, clientphoneNumber, email, gstNo, joiningdate, address,amount } = req.body;
+    const { clientName, clientphoneNumber, email, gstNo, joiningdate, address } = req.body;
 
     if (!clientName) {
       return res.status(400).json({ message: "Client name is required" });
@@ -15,7 +15,7 @@ exports.addClient = async (req, res) => {
       gstNo,
       joiningdate,
       address,
-      amount
+     
     });
 
     const savedClient = await newClient.save();
@@ -46,7 +46,7 @@ exports.getAllClients = async (req, res) => {
 exports.updateClient = async (req, res) => {
   try {
     const { id } = req.params;
-    const { clientName, clientphoneNumber, email, gstNo, joiningdate, address,amount } = req.body;
+    const { clientName, clientphoneNumber, email, gstNo, joiningdate, address } = req.body;
 
     if (!clientName) {
       return res.status(400).json({ message: "Client name is required" });
@@ -54,7 +54,7 @@ exports.updateClient = async (req, res) => {
 
     const updatedClient = await Client.findByIdAndUpdate(
       id,
-      { clientName, clientphoneNumber, email, gstNo, joiningdate, address,amount },
+      { clientName, clientphoneNumber, email, gstNo, joiningdate, address },
       { new: true }
     );
 

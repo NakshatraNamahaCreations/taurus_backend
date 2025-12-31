@@ -33,9 +33,14 @@ const termscondition = require("./route/termscondition");
 const user = require("./route/user");
 // const clientAuth = require("./route/Auth/clientAuth.js");
 const master = require("./route/Auth/Master.js");
-const invoiceRoutes = require('./route/Invoicename.js'); 
+const invoiceRoutes = require('./route/Invoicename.js');
 const Clientauth = require('./route/clients.js');
-const Paymentrout = require('./route/Payment.js')
+const Paymentrout = require('./route/Payment.js');
+const processorRoute = require("./route/Processor.js");
+const generationRoute = require("./route/Generation.js");
+const devicetypeRoute = require("./route/DeviceType.js");
+const returnRoute = require("./route/Return.js");
+
 
 app.use("/api/user", user);
 app.use("/api/product", product);
@@ -45,8 +50,13 @@ app.use("/api/quotations", quotations);
 app.use("/api/terms", termscondition);
 app.use("/api/master", master);
 app.use("/api/invoicename", invoiceRoutes);
-app.use('/api/client',Clientauth);
-app.use("/api/payment",Paymentrout)
+app.use('/api/client', Clientauth);
+app.use("/api/payment", Paymentrout);
+app.use("/api/processor", processorRoute);
+app.use("/api/generation", generationRoute);
+app.use("/api/devicetype", devicetypeRoute);
+app.use("/api/return", returnRoute);
+
 
 
 const PORT = process.env.PORT || 8000;

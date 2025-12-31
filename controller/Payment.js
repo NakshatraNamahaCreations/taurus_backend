@@ -1,6 +1,7 @@
 const Payment = require("../model/Payment");
 const Order = require("../model/order");
 
+
 exports.createPayment = async (req, res) => {
   try {
     const {
@@ -53,10 +54,10 @@ exports.getPayments = async (req, res) => {
         path: "orderId",
         populate: {
           path: "clientId",
-          model: "client", 
+          model: "client",
         },
       })
-      .populate("clientId") 
+      .populate("clientId")
       .sort({ createdAt: -1 });
 
     if (!payments || payments.length === 0) {
@@ -123,7 +124,7 @@ exports.deletePayment = async (req, res) => {
 exports.getNextPaymentsdate = async (req, res) => {
   try {
     const payments = await Payment.find({
-      nextPaymentDate: { $exists: true, $ne: null } 
+      nextPaymentDate: { $exists: true, $ne: null }
     })
       .populate({
         path: "orderId",

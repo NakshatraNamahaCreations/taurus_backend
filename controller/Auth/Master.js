@@ -13,7 +13,13 @@ class Team {
         quotation,
         paymentreports,
         termsandcondition,
-        product
+        product,
+        Master,
+        returnorder,
+        damage,
+        dashboard,
+        completereturn,
+        productrevenue,
       } = req.body;
       const newTeamMember = new TeamMembers({
         name,
@@ -25,7 +31,13 @@ class Team {
         quotation,
         paymentreports,
         termsandcondition,
-        product
+        product,
+        Master,
+        returnorder,
+        damage,
+        dashboard,
+        completereturn,
+        productrevenue,
       });
       await newTeamMember.save();
       res.status(200).json({
@@ -113,7 +125,13 @@ class Team {
         quotation,
         paymentreports,
         termsandcondition,
-        product
+        product,
+        Master,
+        returnorder,
+        damage,
+        dashboard,
+        completereturn,
+        productrevenue,
       } = req.body;
 
       let teamMember = await TeamMembers.findOne({ _id: teamMemberId });
@@ -131,12 +149,18 @@ class Team {
           password,
           email,
           user,
-        clients,
-        orders,
-        quotation,
-        paymentreports,
-        termsandcondition,
-        product
+          clients,
+          orders,
+          quotation,
+          paymentreports,
+          termsandcondition,
+          product,
+          Master,
+          returnorder,
+          damage,
+          dashboard,
+          completereturn,
+          productrevenue,
         },
         {
           new: true,

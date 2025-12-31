@@ -3,6 +3,7 @@ const Terms = require('../model/termscondition');
 exports.createTerms = async (req, res) => {
     try {
         const { clientId, clientName, title, points } = req.body;
+        console.log(req.body);
         const newTerms = new Terms({ clientId, clientName, title, points });
         await newTerms.save();
         res.status(201).json(newTerms);
@@ -59,7 +60,7 @@ exports.getTermsByClientId = async (req, res) => {
     try {
         const { clientId } = req.params;
         const terms = await Terms.find({ clientId });
-        if (!terms || terms.length === 0) 
+        if (!terms || terms.length === 0)
             return res.status(404).json({ message: 'No terms found for this client' });
         res.status(200).json(terms);
     } catch (error) {

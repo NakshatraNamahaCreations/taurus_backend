@@ -1,97 +1,108 @@
 const Product = require("../model/product");
 
-
 exports.addProduct = async (req, res) => {
   try {
     const {
       productName,
-      productType,
       brandName,
-      price,
-      depositAmount,
-      quantity,
-      availableQty,
-      systemNumber,
-      serialNumber,
+      deviceType,
+      processor,
+      generation,
+      systems = [],
       description,
     } = req.body;
 
-    if (!productName || !productType || !brandName || !price || !quantity) {
-      return res.status(400).json({ message: "Please fill all required fields" });
+    if (!productName || !brandName || !deviceType || !processor || !generation) {
+      return res.status(400).json({ message: "Missing required fields" });
     }
 
-    const newProduct = new Product({
+    const quantity = systems.length;
+    const availableQty = systems.filter(s => s.isAvailable).length;
+
+    const product = await Product.create({
       productName,
-      productType,
       brandName,
-      price,
-      depositAmount,
+      deviceType,
+      processor,
+      generation,
+      systems,
       quantity,
       availableQty,
-      systemNumber,
-      serialNumber,
       description,
     });
 
-    const savedProduct = await newProduct.save();
-    res.status(201).json({ message: "Product added successfully", data: savedProduct });
+    res.status(201).json({
+      success: true,
+      message: "Product added successfully",
+      data: product,
+    });
   } catch (error) {
-    console.error("Error adding product:", error);
-    res.status(500).json({ message: "Error adding product", error: error.message });
-  }
-};
-
-exports.getAllProducts = async (req, res) => {
-  try {
-    const products = await Product.find().sort({ createdAt: -1 });
-    res.status(200).json({ message: "All products fetched", data: products });
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(500).json({ message: "Error fetching products", error: error.message });
-  }
-};
-
-exports.getProductById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findById(id);
-
-    if (!product) return res.status(404).json({ message: "Product not found" });
-
-    res.status(200).json({ message: "Product fetched successfully", data: product });
-  } catch (error) {
-    console.error("Error fetching product:", error);
-    res.status(500).json({ message: "Error fetching product", error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
 exports.updateProduct = async (req, res) => {
   try {
-    const { id } = req.params;
+    const {
+      productName,
+      brandName,
+      deviceType,
+      processor,
+      generation,
+      systems = [],
+      description,
+    } = req.body;
 
-    const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
+    const quantity = systems.length;
+    const availableQty = systems.filter(s => s.isAvailable).length;
 
-    if (!updatedProduct) return res.status(404).json({ message: "Product not found" });
+    const updated = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        productName,
+        brandName,
+        deviceType,
+        processor,
+        generation,
+        systems,
+        quantity,
+        availableQty,
+        description,
+      },
+      { new: true }
+    );
 
-    res.status(200).json({ message: "Product updated successfully", data: updatedProduct });
+    res.json({ message: "Product updated", data: updated });
   } catch (error) {
-    console.error("Error updating product:", error);
-    res.status(500).json({ message: "Error updating product", error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
+exports.getAllProducts = async (req, res) => {
+  const products = await Product.find()
+    .populate("deviceType")
+    .populate("processor")
+    .populate("generation")
+    .sort({ createdAt: -1 });
+
+  res.json({ data: products });
+};
+
+exports.getProductById = async (req, res) => {
+  const product = await Product.findById(req.params.id)
+    .populate("deviceType")
+    .populate("processor")
+    .populate("generation");
+
+  res.json({ data: product });
+};
+
+
 exports.deleteProduct = async (req, res) => {
   try {
-    const { id } = req.params;
-    const deleted = await Product.findByIdAndDelete(id);
-
-    if (!deleted) return res.status(404).json({ message: "Product not found" });
-
-    res.status(200).json({ message: "Product deleted successfully" });
+    await Product.findByIdAndDelete(req.params.id);
+    res.json({ message: "Product deleted" });
   } catch (error) {
-    console.error("Error deleting product:", error);
-    res.status(500).json({ message: "Error deleting product", error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
