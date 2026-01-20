@@ -81,6 +81,13 @@ exports.createOrder = async (req, res) => {
       rentalType,
       startDate,
       endDate,
+      taxType,
+      igstRate,
+      cgstRate,
+      sgstRate,
+      igstAmount,
+      cgstAmount,
+      sgstAmount,
     } = req.body;
 
     if (!products || products.length === 0) {
@@ -158,6 +165,13 @@ exports.createOrder = async (req, res) => {
       status: "pending",
       startDate,
       endDate,
+      taxType,
+      igstRate,
+      cgstRate,
+      sgstRate,
+      igstAmount,
+      cgstAmount,
+      sgstAmount,
     });
 
     const savedOrder = await newOrder.save();
@@ -219,6 +233,13 @@ exports.updateOrder = async (req, res) => {
       status,
       startDate,
       endDate,
+      taxType,
+      igstRate,
+      cgstRate,
+      sgstRate,
+      igstAmount,
+      cgstAmount,
+      sgstAmount,
     } = req.body;
 
     const order = await Order.findById(id);
@@ -262,6 +283,14 @@ exports.updateOrder = async (req, res) => {
     order.status = status || order.status;
     order.startDate = startDate || order.startDate;
     order.endDate = endDate || order.endDate;
+    order.taxType = taxType || order.taxType;
+    order.igstRate = igstRate || order.igstRate;
+    order.cgstRate = cgstRate || order.cgstRate;
+    order.sgstRate = sgstRate || order.sgstRate;
+    order.igstAmount = igstAmount || order.igstAmount;
+    order.cgstAmount = cgstAmount || order.cgstAmount;
+    order.sgstAmount = sgstAmount || order.sgstAmount;
+
 
     const updatedOrder = await order.save();
 

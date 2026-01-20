@@ -16,7 +16,14 @@ exports.createQuotation = async (req, res) => {
       rentalType,
       startDate,
       endDate,
-      grandTotal
+      grandTotal,
+      taxType,
+      igstRate,
+      cgstRate,
+      sgstRate,
+      igstAmount,
+      cgstAmount,
+      sgstAmount,
     } = req.body;
     if (!mongoose.Types.ObjectId.isValid(clientId)) {
       return res.status(400).json({ message: "Invalid client ID format" });
@@ -36,7 +43,14 @@ exports.createQuotation = async (req, res) => {
       grandTotal,
       rentalType,
       startDate,
-      endDate
+      endDate,
+      taxType,
+      igstRate,
+      cgstRate,
+      sgstRate,
+      igstAmount,
+      cgstAmount,
+      sgstAmount,
     });
     await quotation.save();
     res.status(201).json(quotation);
@@ -52,7 +66,13 @@ exports.createQuotation = async (req, res) => {
 exports.editQuotation = async (req, res) => {
   try {
     const { id } = req.params;
-    const { clientName, products, transportCharges = 0, gst = 0, discount = 0, rentalType, startDate, endDate, grandTotal } = req.body;
+    const { clientName, products, transportCharges = 0, gst = 0, discount = 0, rentalType, startDate, endDate, grandTotal, taxType,
+      igstRate,
+      cgstRate,
+      sgstRate,
+      igstAmount,
+      cgstAmount,
+      sgstAmount, } = req.body;
     const quotation = await Quotation.findByIdAndUpdate(
       id,
       {
@@ -64,7 +84,14 @@ exports.editQuotation = async (req, res) => {
         grandTotal,
         rentalType,
         startDate,
-        endDate
+        endDate,
+        taxType,
+        igstRate,
+        cgstRate,
+        sgstRate,
+        igstAmount,
+        cgstAmount,
+        sgstAmount,
       },
       { new: true }
     );

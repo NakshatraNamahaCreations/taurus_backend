@@ -16,6 +16,24 @@ const OrderSchema = new mongoose.Schema(
     endDate: { type: Date },
     invoiceNo: { type: String, },
     deliveryChallanNo: { type: String },
+    taxType: {
+      type: String,
+      enum: ["igst", "cgst_sgst"],
+      default: "cgst_sgst",
+    },
+
+    // total GST percentage (example 18)
+    gst: { type: Number, default: 0 },
+
+    // store breakup rates (optional but useful)
+    igstRate: { type: Number, default: 0 },
+    cgstRate: { type: Number, default: 0 },
+    sgstRate: { type: Number, default: 0 },
+
+    // ✅ store breakup amounts (optional but very useful for PDF)
+    igstAmount: { type: Number, default: 0 },
+    cgstAmount: { type: Number, default: 0 },
+    sgstAmount: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
